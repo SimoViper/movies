@@ -1,0 +1,201 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: simo
+      changes:
+        - createTable:
+            tableName: language
+            columns:
+              - column:
+                  name: language_id
+                  type: INT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(30)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_update
+                  type: timestamp
+
+  - changeSet:
+      id: 2
+      author: simo
+      changes:
+        - createTable:
+            tableName: category
+            columns:
+              - column:
+                  name: category_id
+                  type: INT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(30)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_update
+                  type: timestamp
+
+  - changeSet:
+      id: 3
+      author: simo
+      changes:
+        - createTable:
+            tableName: film
+            columns:
+              - column:
+                  name: film_id
+                  type: INT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(350)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: release_year
+                  type: year
+                  constraints:
+                    nullable: false
+              - column:
+                  name: language_id
+                  type: INT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_language
+                    references: language(language_id)
+              - column:
+                  name: original_language_id
+                  type: INT
+                  constraints:
+                    nullable: true
+                    foreignKeyName: fk_original_language
+                    references: language(language_id)
+              - column:
+                  name: rental_duration
+                  type: int
+                  constraints:
+                    nullable: true
+              - column:
+                  name: length
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: rental_rate
+                  type: decimal
+                  constraints:
+                    nullable: false
+              - column:
+                  name: replacement_cost
+                  type: decimal
+                  constraints:
+                    nullable: true
+              - column:
+                  name: rating
+                  type: varchar(6)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: special_features
+                  type: varchar(150)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: last_update
+                  type: timestamp
+
+  - changeSet:
+      id: 4
+      author: simo
+      changes:
+        - createTable:
+            tableName: actor
+            columns:
+              - column:
+                  name: actor_id
+                  type: INT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_update
+                  type: timestamp
+
+  - changeSet:
+      id: 5
+      author: simo
+      changes:
+        - createTable:
+            tableName: film_actor
+            columns:
+              - column:
+                  name: actor_id
+                  type: INT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: film_id
+                  type: INT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: last_update
+                  type: timestamp
+
+  - changeSet:
+      id: 6
+      author: simo
+      changes:
+        - createTable:
+            tableName: film_category
+            columns:
+              - column:
+                  name: film_id
+                  type: INT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: category_id
+                  type: INT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: last_update
+                  type: timestamp
+
+  - changeSet:
+      id: 7
+      author: simo
+      changes:
+        - sqlFile:
+            dbms: 'mysql'
+            path: db/sql/data.sql
